@@ -1,12 +1,12 @@
 import { Outlet } from "@tanstack/react-router";
-import Navbar from "./components/navbar";
+import Navigation from "./components/navbar";
 import "./App.css";
 
 function App() {
   return (
     <>
       <header>
-        <Navbar />
+        <Navigation />
       </header>
 
       <main>
