@@ -58,20 +58,34 @@ export default function HomePage() {
 
   return (
     <>
-      <h1>Index/ Home Page</h1>
+      <h1 className="text-2xl font-bold mb-4">Index/ Home Page</h1>
 
-      <section>
+      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {posts
           .filter((post) => post.title !== "string") // Filter out posts with 'string' media
           .map((post) => (
-            <div key={post.id}>
-              <h2>{post.title}</h2>
-              <img
-                src={`https://source.unsplash.com/random?sig=${Math.floor(
-                  Math.random() * 1000
-                )}`}
-                alt={post.title}
-              />
+            <div
+              key={post.id}
+              className="bg-white text-black lg shadow-md p-4 hover:shadow-lg transition duration-300"
+            >
+              <h2 className="text-xl font-semibold mb-2">{post.title}</h2>
+              <div className="aspect-w-3 aspect-h-2">
+                <img
+                  src={`https://source.unsplash.com/random?sig=${Math.floor(
+                    Math.random() * 1000
+                  )}`}
+                  alt={post.title}
+                  className="object-cover object-center lg w-full h-full"
+                />
+                <div className="">
+                  <button>
+                    <img src="Like.png" />
+                    Like
+                  </button>
+                  <button>💬Comment</button>
+                  <button>🖊Edit</button>
+                </div>
+              </div>
             </div>
           ))}
       </section>
