@@ -8,7 +8,6 @@ import { useEffect, useState } from "react";
  * @see https://docs.noroff.dev/social-endpoints/posts
  */
 
-
 export default function HomePage() {
   /** @type {[Post[], React.Dispatch<Data>]} */
   const [posts, setPosts] = useState([]);
@@ -20,13 +19,15 @@ export default function HomePage() {
       try {
         setIsLoading(true);
 
-        const accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ODEsIm5hbWUiOiJmcm9kbG8iLCJlbWFpbCI6ImZpcnN0Lmxhc3RAc3R1ZC5ub3JvZmYubm8iLCJhdmF0YXIiOm51bGwsImJhbm5lciI6bnVsbCwiaWF0IjoxNjk2NDExMTMyfQ.5rZZV8ic8pB0zNR_fLzZyHmOgteJA4HE5AbB4iPvNNE';
+        const accessToken =
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ODEsIm5hbWUiOiJmcm9kbG8iLCJlbWFpbCI6ImZpcnN0Lmxhc3RAc3R1ZC5ub3JvZmYubm8iLCJhdmF0YXIiOm51bGwsImJhbm5lciI6bnVsbCwiaWF0IjoxNjk2NDExMTMyfQ.5rZZV8ic8pB0zNR_fLzZyHmOgteJA4HE5AbB4iPvNNE";
         console.log(accessToken);
 
         const url = new URL(`https://api.noroff.dev/api/v1/social/posts`);
         url.searchParams.append("_author", "true");
         url.searchParams.append("_comments", "true");
         url.searchParams.append("_reactions", "true");
+        url.searchParams.append("sortOrder", "asc");
 
         const response = await fetch(url.href, {
           headers: {
@@ -58,17 +59,22 @@ export default function HomePage() {
   return (
     <>
       <h1>Index/ Home Page</h1>
-  
+
       <section>
-      {posts
-        .filter((post) => post.title !== 'string') // Filter out posts with 'string' media
-        .map((post) => (
-          <div key={post.id}>
-            <h2>{post.title}</h2>
-            <img src={post.media} alt={post.title} />
-          </div>
-        ))}
-    </section>
+        {posts
+          .filter((post) => post.title !== "string") // Filter out posts with 'string' media
+          .map((post) => (
+            <div key={post.id}>
+              <h2>{post.title}</h2>
+              <img
+                src={`https://source.unsplash.com/random?sig=${Math.floor(
+                  Math.random() * 1000
+                )}`}
+                alt={post.title}
+              />
+            </div>
+          ))}
+      </section>
     </>
   );
 }
