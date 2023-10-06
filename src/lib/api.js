@@ -49,3 +49,17 @@ export async function fetchAllPosts() {
     throw new Error(error);
   }
 }
+
+export async function login({ username, password }) {
+
+  try {
+    const response = await fetch.post(`${API_URL}/auth/login`, {
+      username,
+      password,
+    });
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+
+}
