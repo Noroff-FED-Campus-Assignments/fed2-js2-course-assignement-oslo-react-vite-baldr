@@ -10,7 +10,8 @@ export default function ExampleProfiles() {
       try {
         setIsLoading(true);
 
-        const accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ODEsIm5hbWUiOiJmcm9kbG8iLCJlbWFpbCI6ImZpcnN0Lmxhc3RAc3R1ZC5ub3JvZmYubm8iLCJhdmF0YXIiOm51bGwsImJhbm5lciI6bnVsbCwiaWF0IjoxNjk2NDExMTMyfQ.5rZZV8ic8pB0zNR_fLzZyHmOgteJA4HE5AbB4iPvNNE';
+        const accessToken =
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ODEsIm5hbWUiOiJmcm9kbG8iLCJlbWFpbCI6ImZpcnN0Lmxhc3RAc3R1ZC5ub3JvZmYubm8iLCJhdmF0YXIiOm51bGwsImJhbm5lciI6bnVsbCwiaWF0IjoxNjk2NDExMTMyfQ.5rZZV8ic8pB0zNR_fLzZyHmOgteJA4HE5AbB4iPvNNE";
         const url = new URL(`https://api.noroff.dev/api/v1/social/profiles`);
         url.searchParams.append("_author", "true");
         url.searchParams.append("_comments", "true");
@@ -64,10 +65,7 @@ export default function ExampleProfiles() {
           <div key={profile.id}>
             <h2>{profile.name}</h2>
             <h3>{profile.email}</h3>
-            <img
-              src={profile.avatar}
-              alt={profile.name}
-            />
+            <img src={profile.avatar} alt={profile.name} />
           </div>
         ))}
       </section>
