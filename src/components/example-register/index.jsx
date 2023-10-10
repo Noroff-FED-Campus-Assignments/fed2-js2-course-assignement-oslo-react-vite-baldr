@@ -44,7 +44,7 @@ export default function ExampleRegisterPage() {
 
     try {
       const res = await fetch(
-        "https://api.noroff.dev/api/v1/social/auth/login",
+        "https://api.noroff.dev/api/v1/social/auth/register",
         {
           method: "POST",
           body: JSON.stringify(payload),
