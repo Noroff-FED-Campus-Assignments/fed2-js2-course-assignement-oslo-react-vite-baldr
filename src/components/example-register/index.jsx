@@ -10,12 +10,12 @@ export default function ExampleRegisterPage() {
 
   const navigateToHome = () => {
     setTimeout(() => {
-      navigate({ to: "/" });
+      navigate({ to: "/login" });
     }, 2000);
   };
 
   function validateEmail(email) {
-    const noroffEmailRegex = /^(?=.*@noroff\.no$|@stud\.noroff\.no$)/;
+    const noroffEmailRegex = /^(.+)@(noroff\.no|stud\.noroff\.no)$/;
     const isValid = noroffEmailRegex.test(email);
     const errorMessage = document.getElementById("email-error-message");
 
@@ -95,7 +95,7 @@ export default function ExampleRegisterPage() {
                 htmlFor="name"
                 className="block text-sm font-medium leading-6 text-white"
               >
-                Name
+                Name (Required)
               </label>
               <div className="mt-2">
                 <input
@@ -114,7 +114,7 @@ export default function ExampleRegisterPage() {
                 htmlFor="avatar"
                 className="block text-sm font-medium leading-6 text-white"
               >
-                Avatar
+                Avatar (Optional)
               </label>
               <div className="mt-2">
                 <input
@@ -132,7 +132,7 @@ export default function ExampleRegisterPage() {
                 htmlFor="banner"
                 className="block text-sm font-medium leading-6 text-white"
               >
-                Banner
+                Banner (Optional)
               </label>
               <div className="mt-2">
                 <input
@@ -150,7 +150,7 @@ export default function ExampleRegisterPage() {
                 htmlFor="email"
                 className="block text-sm font-medium leading-6 text-white"
               >
-                Email address
+                Email address (Required)
               </label>
               <div className="mt-2">
                 <input
@@ -175,7 +175,7 @@ export default function ExampleRegisterPage() {
                   htmlFor="password"
                   className="block text-sm font-medium leading-6 text-white"
                 >
-                  Password
+                  Password (Required)
                 </label>
                 <div className="text-sm"></div>
               </div>
