@@ -43,6 +43,7 @@ export default function HomePage() {
           "https://api.noroff.dev/api/v1/social/profiles?_author=true&_comments=true&_reactions=true",
           {
             headers: {
+              method: "GET",
               Authorization: `Bearer ${accessToken}`,
             },
           }
@@ -53,6 +54,7 @@ export default function HomePage() {
         }
 
         const profilesData = await profilesResponse.json();
+
         setProfiles(profilesData);
       } catch (error) {
         setError(error);
@@ -76,10 +78,6 @@ export default function HomePage() {
         {posts
           .filter((post) => post.title !== "string")
           .map((post) => {
-            const authorProfile = profiles.find(
-              (profile) => profile.id === post.authorId
-            );
-
             return (
               <div
                 key={post.id}
@@ -103,14 +101,20 @@ export default function HomePage() {
                     <button>🖊Edit</button>
                   </div>
                 </div>
-                {authorProfile && (
+
+                {post.author && (
                   <div className="mt-2">
                     <img
-                      src={authorProfile.avatar}
-                      alt={authorProfile.name}
+                      src={
+                        post.author.avatar ??
+                        `https://source.unsplash.com/random?sig=${Math.floor(
+                          Math.random() * 1000
+                        )}`
+                      }
+                      alt={post.author.name}
                       className="w-8 h-8 rounded-full inline-block mr-2"
                     />
-                    <span className="text-sm">{authorProfile.name}</span>
+                    <span className="text-sm">{post.author.name}</span>
                   </div>
                 )}
               </div>
