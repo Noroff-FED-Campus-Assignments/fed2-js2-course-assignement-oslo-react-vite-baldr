@@ -83,25 +83,6 @@ export default function HomePage() {
                 key={post.id}
                 className="bg-white text-black lg shadow-md p-4 hover:shadow-lg transition duration-300"
               >
-                <h2 className="text-xl font-semibold mb-2">{post.title}</h2>
-                <div className="aspect-w-3 aspect-h-2">
-                  <img
-                    src={`https://source.unsplash.com/random?sig=${Math.floor(
-                      Math.random() * 1000
-                    )}`}
-                    alt={post.title}
-                    className="object-cover object-center lg w-full h-full rounded-lg"
-                  />
-                  <div className="">
-                    <button>
-                      <img src="Like.png" alt="Like" />
-                      Like
-                    </button>
-                    <button>💬Comment</button>
-                    <button>🖊Edit</button>
-                  </div>
-                </div>
-
                 {post.author && (
                   <div className="mt-2">
                     <img
@@ -117,11 +98,28 @@ export default function HomePage() {
                     <span className="text-sm">{post.author.name}</span>
                   </div>
                 )}
+                <h2 className="text-xl font-semibold mb-2">{post.title}</h2>
+                <div className="aspect-w-3 aspect-h-2">
+                  <img
+                    src={`https://source.unsplash.com/random?sig=${Math.floor(
+                      Math.random() * 1000
+                    )}`}
+                    alt={post.title}
+                    className="object-cover object-center lg w-full h-full rounded-lg"
+                  />
+                  <div className="flex items-center">
+                    <button className="flex items-center mr-4">
+                      <img src="Like.png" alt="Like" className="w-5 h-5 mr-2" />
+                      Like
+                    </button>
+                    <button className="mr-4">💬Comment</button>
+                    <button>🖊Edit</button>
+                  </div>
+                </div>
               </div>
             );
           })}
       </section>
-      <ExampleProfiles />
     </>
   );
 }
