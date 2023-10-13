@@ -60,3 +60,16 @@ export const PostShape = {
   authorName: PropTypes.string,
   imageUrl: PropTypes.string,
 };
+
+export const ProfileShape = {
+  id: PropTypes.number,
+  name: PropTypes.string,
+  email: PropTypes.string,
+  avatar: PropTypes.string,
+  banner: PropTypes.string,
+  _count: {
+      posts: PropTypes.number,
+      followers: PropTypes.number,
+      profiles: PropTypes.number,
+  }
+};
