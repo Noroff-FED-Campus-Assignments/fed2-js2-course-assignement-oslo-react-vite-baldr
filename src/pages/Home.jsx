@@ -72,7 +72,9 @@ function HomePage() {
                 </div>
               )}
               <h2 className="text-xl font-semibold mb-2">
-                <Link to={`/post/${post.id}`}>{post.title}</Link>
+                <Link to={`/post/${post.id}?postid=${post.id}`}>
+                  {post.title}
+                </Link>
               </h2>
               <div className="aspect-w-3 aspect-h-2">
                 <img
