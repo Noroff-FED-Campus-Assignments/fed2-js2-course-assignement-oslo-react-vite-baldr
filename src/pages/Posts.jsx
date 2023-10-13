@@ -39,14 +39,29 @@ const FetchSpecific = () => {
   }, [postid]);
 
   return (
-    <div className="specific">
-      <h2>Individual Post</h2>
+    <div className="specific bg-white">
       {isLoading ? (
         <p>Loading...</p>
       ) : post ? (
         <div>
-          <p>Post ID: {post.id}</p>
-          <p>Title: {post.title}</p>
+          {post.author && (
+            <div className="mt-2 text-sm font-semibold">
+              <img
+                src={
+                  post.author.avatar ??
+                  `https://source.unsplash.com/random?sig=${Math.floor(
+                    Math.random() * 1000
+                  )}`
+                }
+                alt={post.author.name}
+                className="w-8 h-8 rounded-full inline-block mr-2"
+              />
+              <span className="text-sm">{post.author.name}</span>
+            </div>
+          )}
+          <h1 className="text-xl font-bold">{post.title}</h1>
+          <p>{post.created}</p>
+          <p>{post.body}</p>
           <img
             src={`https://source.unsplash.com/random?sig=${Math.floor(
               Math.random() * 1000
