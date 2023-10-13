@@ -10,6 +10,28 @@ const FetchSpecific = () => {
   const [post, setPost] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
+  const handleDeletePost = async () => {
+    try {
+      const response = await fetch(
+        `https://api.noroff.dev/api/v1/social/posts/${postid}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+
+      if (response.ok) {
+        // Post has been successfully deleted. You can handle this as needed.
+      } else {
+        // Handle the error here, e.g., display an error message.
+      }
+    } catch (error) {
+      // Handle network or other errors here.
+    }
+  };
+
   useEffect(() => {
     const fetchSpecificPost = async () => {
       try {
@@ -60,6 +82,7 @@ const FetchSpecific = () => {
                 <span className="text-sm">{post.author.name}</span>
               </div>
             )}
+
             <h1 className="text-xl font-bold">{post.title}</h1>
             <p>{post.created}</p>
             <img
@@ -70,6 +93,13 @@ const FetchSpecific = () => {
               className="object-cover object-center lg w-full h-full rounded-lg"
             />
             <p>{post.body}</p>
+
+            <button
+              onClick={handleDeletePost}
+              className="bg-red-500 text-white p-2 rounded mt-4"
+            >
+              Delete Post
+            </button>
           </div>
         ) : (
           <p>Error loading post.</p>

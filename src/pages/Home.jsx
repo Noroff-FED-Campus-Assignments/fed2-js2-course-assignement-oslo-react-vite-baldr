@@ -6,6 +6,35 @@ function HomePage() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [isCreating, setIsCreating] = useState(false);
+  const [newPostContent, setNewPostContent] = useState("");
+
+  const handleCreatePost = async () => {
+    try {
+      const response = await fetch(
+        "https://api.noroff.dev/api/v1/social/posts",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ body: newPostContent }),
+        }
+      );
+
+      if (response.ok) {
+        // Post has been successfully created. You can handle this as needed.
+        setIsCreating(false);
+        setNewPostContent(""); // Clear the input field
+        // You may also fetch and display the newly created post if needed.
+      } else {
+        // Handle the error here, e.g., display an error message.
+      }
+    } catch (error) {
+      // Handle network or other errors here.
+    }
+  };
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -46,6 +75,32 @@ function HomePage() {
     <>
       <div className="bg-white text-black">
         <h1 className="text-2xl font-bold mb-4">Index/ Home Page</h1>
+        <div className="create-post">
+          {isCreating ? (
+            <div>
+              <textarea
+                value={newPostContent}
+                onChange={(e) => setNewPostContent(e.target.value)}
+                rows="4"
+                className="w-full p-2 border border-gray-300 rounded-md mt-4"
+              ></textarea>
+              <button
+                onClick={handleCreatePost}
+                className="bg-green-500 text-white p-2 rounded mt-4"
+              >
+                Create Post
+              </button>
+            </div>
+          ) : (
+            <button
+              onClick={() => setIsCreating(true)}
+              className="bg-blue-500 text-white p-2 rounded mt-4"
+            >
+              Create New Post
+            </button>
+          )}
+        </div>
+
         <input
           type="text"
           placeholder="Search by body content"
