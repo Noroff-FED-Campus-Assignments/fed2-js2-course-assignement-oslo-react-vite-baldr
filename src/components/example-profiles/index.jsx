@@ -62,11 +62,13 @@ export default function ExampleProfiles() {
 
       <section>
         {profiles.map((profile) => (
-          <div key={profile.id}>
-            <h2>{profile.name}</h2>
-            <h3>{profile.email}</h3>
-            <img src={profile.avatar} alt={profile.name} />
-          </div>
+          <div key={profile?.name}>
+            <Link to={`/profiles/${profile.name}?profileid=${profile.name}`}>
+              <h2>{profile?.name}</h2>
+              <h3>{profile?.email}</h3>
+              <img src={profile?.avatar} alt={profile?.name} />
+            </Link>
+            </div>
         ))}
       </section>
     </>
