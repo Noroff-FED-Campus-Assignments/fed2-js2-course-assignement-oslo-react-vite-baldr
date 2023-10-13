@@ -8,7 +8,6 @@ import ProfileDetail from "./components/example-profiledetail";
 import "./App.css";
 
 function App() {
-  const [profiles, setProfiles] = useState([]);
   return (
     <>
       <header>
@@ -20,7 +19,7 @@ function App() {
         <Outlet />
           <Switch>
             <Route path="/profiles" exact>
-              <ExampleProfiles profiles={profiles} setProfiles={setProfiles} />
+              <ExampleProfiles />
             </Route>
             <Route path="/profile/:name">
               <ProfileDetail />
