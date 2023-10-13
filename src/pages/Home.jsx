@@ -47,55 +47,63 @@ function HomePage() {
 
   return (
     <>
-      <h1 className="text-2xl font-bold mb-4">Index/ Home Page</h1>
-      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {posts
-          .filter((post) => post.title !== "string")
-          .map((post) => (
-            <div
-              key={post.id}
-              className="bg-white text-black lg shadow-md p-4 hover:shadow-lg transition duration-300"
-            >
-              {post.author && (
-                <div className="mt-2">
-                  <img
-                    src={
-                      post.author.avatar ??
-                      `https://source.unsplash.com/random?sig=${Math.floor(
+      <div className="bg-white text-black">
+        <h1 className="text-2xl font-bold mb-4">Index/ Home Page</h1>
+        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {posts
+            .filter((post) => post.title !== "string")
+            .map((post) => (
+              <div
+                key={post.id}
+                className="bg-white text-black lg shadow-md p-4 hover:shadow-lg transition duration-300"
+              >
+                {post.author && (
+                  <div className="mt-2">
+                    <img
+                      src={
+                        post.author.avatar ??
+                        `https://source.unsplash.com/random?sig=${Math.floor(
+                          Math.random() * 1000
+                        )}`
+                      }
+                      alt={post.author.name}
+                      className="w-8 h-8 rounded-full inline-block mr-2"
+                    />
+                    <span className="text-sm">{post.author.name}</span>
+                  </div>
+                )}
+                <div className="aspect-w-3 aspect-h-2 mt-4">
+                  <Link to={`/post/${post.id}?postid=${post.id}`}>
+                    <img
+                      src={`https://source.unsplash.com/random?sig=${Math.floor(
                         Math.random() * 1000
-                      )}`
-                    }
-                    alt={post.author.name}
-                    className="w-8 h-8 rounded-full inline-block mr-2"
-                  />
-                  <span className="text-sm">{post.author.name}</span>
-                </div>
-              )}
-              <h2 className="text-xl font-semibold mb-2">
-                <Link to={`/post/${post.id}?postid=${post.id}`}>
-                  {post.title}
-                </Link>
-              </h2>
-              <div className="aspect-w-3 aspect-h-2">
-                <img
-                  src={`https://source.unsplash.com/random?sig=${Math.floor(
-                    Math.random() * 1000
-                  )}`}
-                  alt={post.title}
-                  className="object-cover object-center lg w-full h-full rounded-lg"
-                />
-                <div className="flex items-center">
-                  <button className="flex items-center mr-4">
-                    <img src="Like.png" alt="Like" className="w-5 h-5 mr-2" />
-                    Like
-                  </button>
-                  <button className="mr-4">💬Comment</button>
-                  <button onClick={() => handleEditPost(post.id)}>🖊Edit</button>
+                      )}`}
+                      alt={post.title}
+                      className="object-cover object-center lg w-full h-full rounded-lg"
+                    />
+                    <div className="mt-4">{post.body}</div>
+                  </Link>
+                  <p className="text-sm font-normal mb-4 mt-4"></p>
+                  <div className="flex items-center">
+                    <button className="flex items-center mr-4 text-sm font-normal">
+                      <img src="Like.png" alt="Like" className="w-5 h-5 mr-2" />
+                      Like
+                    </button>
+                    <button className="mr-4 text-sm font-normal">
+                      💬Comment
+                    </button>
+                    <button
+                      className="text-sm font-normal"
+                      onClick={() => handleEditPost(post.id)}
+                    >
+                      🖊Edit
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-      </section>
+            ))}
+        </section>
+      </div>
     </>
   );
 }
