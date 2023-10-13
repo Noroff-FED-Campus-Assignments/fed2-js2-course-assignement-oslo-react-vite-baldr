@@ -72,54 +72,62 @@ export default function HomePage() {
 
   return (
     <>
-      <h1 className="text-2xl font-bold mb-4">Index/ Home Page</h1>
+      <div className="bg-white text-black p-4">
+        <h1 className="text-2xl font-bold mb-4">Index/ Home Page</h1>
 
-      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {posts
-          .filter((post) => post.title !== "string")
-          .map((post) => {
-            return (
-              <div
-                key={post.id}
-                className="bg-white text-black lg shadow-md p-4 hover:shadow-lg transition duration-300"
-              >
-                {post.author && (
-                  <div className="mt-2">
+        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {posts
+            .filter((post) => post.title !== "string")
+            .map((post) => {
+              return (
+                <div
+                  key={post.id}
+                  className="bg-white text-black lg shadow-md p-4 hover:shadow-lg transition duration-300"
+                >
+                  {post.author && (
+                    <div className="mt-2 mb-4">
+                      <img
+                        src={
+                          post.author.avatar ??
+                          `https://source.unsplash.com/random?sig=${Math.floor(
+                            Math.random() * 1000
+                          )}`
+                        }
+                        alt={post.author.name}
+                        className="w-8 h-8 rounded-full inline-block mr-2"
+                      />
+                      <span className="text-sm">{post.author.name}</span>
+                    </div>
+                  )}
+                  <div className="aspect-w-3 aspect-h-2">
                     <img
-                      src={
-                        post.author.avatar ??
-                        `https://source.unsplash.com/random?sig=${Math.floor(
-                          Math.random() * 1000
-                        )}`
-                      }
-                      alt={post.author.name}
-                      className="w-8 h-8 rounded-full inline-block mr-2"
+                      src={`https://source.unsplash.com/random?sig=${Math.floor(
+                        Math.random() * 1000
+                      )}`}
+                      alt={post.title}
+                      className="object-cover object-center lg w-full h-full rounded-lg"
                     />
-                    <span className="text-sm">{post.author.name}</span>
-                  </div>
-                )}
-                <h2 className="text-xl font-semibold mb-2">{post.title}</h2>
-                <div className="aspect-w-3 aspect-h-2">
-                  <img
-                    src={`https://source.unsplash.com/random?sig=${Math.floor(
-                      Math.random() * 1000
-                    )}`}
-                    alt={post.title}
-                    className="object-cover object-center lg w-full h-full rounded-lg"
-                  />
-                  <div className="flex items-center">
-                    <button className="flex items-center mr-4">
-                      <img src="Like.png" alt="Like" className="w-5 h-5 mr-2" />
-                      Like
-                    </button>
-                    <button className="mr-4">💬Comment</button>
-                    <button>🖊Edit</button>
+                    <p className="text-sm font-normal mb-4 mt-4">{post.body}</p>
+                    <div className="flex items-center">
+                      <button className="flex items-center mr-4 text-sm font-medium">
+                        <img
+                          src="Like.png"
+                          alt="Like"
+                          className="w-5 h-5 mr-2"
+                        />
+                        Like
+                      </button>
+                      <button className="mr-4 text-sm font-medium">
+                        💬Comment
+                      </button>
+                      <button className="text-sm font-medium">🖊Edit</button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
-      </section>
+              );
+            })}
+        </section>
+      </div>
     </>
   );
 }
