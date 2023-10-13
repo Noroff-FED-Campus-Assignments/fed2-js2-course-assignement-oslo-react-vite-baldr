@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
+const accessToken =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ODEsIm5hbWUiOiJmcm9kbG8iLCJlbWFpbCI6ImZpcnN0Lmxhc3RAc3R1ZC5ub3JvZmYubm8iLCJhdmF0YXIiOm51bGwsImJhbm5lciI6bnVsbCwiaWF0IjoxNjk2NDExMTMyfQ.5rZZV8ic8pB0zNR_fLzZyHmOgteJA4HE5AbB4iPvNNE";
+
 function HomePage() {
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -8,6 +11,7 @@ function HomePage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [isCreating, setIsCreating] = useState(false);
   const [newPostContent, setNewPostContent] = useState("");
+  const [filterUser, setFilterUser] = useState("");
 
   const handleCreatePost = async () => {
     try {
@@ -67,9 +71,15 @@ function HomePage() {
     fetchPosts();
   }, []);
 
-  const filteredPosts = posts.filter((post) =>
-    post.body.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredPosts = posts.filter((post) => {
+    const matchesSearch = post.body
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
+    const matchesUser = post.author?.name
+      .toLowerCase()
+      .includes(filterUser.toLowerCase());
+    return matchesSearch && (filterUser === "" || matchesUser);
+  });
 
   return (
     <>
@@ -108,6 +118,15 @@ function HomePage() {
           onChange={(e) => setSearchQuery(e.target.value)}
           className="w-full p-2 mb-4 border border-gray-300 rounded-md"
         />
+
+        <input
+          type="text"
+          placeholder="Filter by user"
+          value={filterUser}
+          onChange={(e) => setFilterUser(e.target.value)}
+          className="w-full p-2 mb-4 border border-gray-300 rounded-md"
+        />
+
         <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {filteredPosts.map((post) => (
             <div
