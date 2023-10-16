@@ -1,5 +1,7 @@
 import { API_URL } from "./constants";
 
+export const apiKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ODEsIm5hbWUiOiJmcm9kbG8iLCJlbWFpbCI6ImZpcnN0Lmxhc3RAc3R1ZC5ub3JvZmYubm8iLCJhdmF0YXIiOm51bGwsImJhbm5lciI6bnVsbCwiaWF0IjoxNjk2NDExMTMyfQ.5rZZV8ic8pB0zNR_fLzZyHmOgteJA4HE5AbB4iPvNNE"
+
 /**
  * Helper function to add the
  * @param {Object} options - HTTP header options
@@ -11,7 +13,7 @@ function updateOptions(options) {
   if (localStorage.getItem("jwt")) {
     update.headers = {
       ...update.headers,
-      Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      Authorization: `Bearer ${apiKey}`,
     };
   }
 
@@ -48,4 +50,18 @@ export async function fetchAllPosts() {
   } catch (error) {
     throw new Error(error);
   }
+}
+
+export async function login({ username, password }) {
+
+  try {
+    const response = await fetch.post(`${API_URL}/auth/login`, {
+      username,
+      password,
+    });
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+
 }
