@@ -5,7 +5,6 @@ import RegisterPage from "./pages/Register";
 import ProfilesPage from "./pages/Profiles";
 import ProfilePage from "./pages/Profile";
 import PostsPage from "./pages/Posts";
-import PostPage from "./pages/Post";
 import Root from "./App";
 import ProfileDetail from "./components/example-profiledetail";
 

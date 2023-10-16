@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
+import { apiKey } from "../../lib/api";
 
 export default function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -28,19 +29,19 @@ export default function LoginForm() {
     try {
       const res = await fetch(
         "https://api.noroff.dev/api/v1/social/auth/login",
-
         {
           method: "POST",
           body: JSON.stringify(payload),
           headers: {
+            Authorization: `Bearer ${apiKey}`,
             "Content-type": "application/json; charset=UTF-8",
           },
         }
       );
 
       const data = await res.json();
-
       localStorage.setItem("access_token", data.accessToken);
+      localStorage.setItem("user_name", data.name);
 
       setData(data);
 
@@ -81,7 +82,7 @@ export default function LoginForm() {
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium leading-6 text-white"
+                className="block text-sm font-medium leading-6 text-black"
               >
                 Email address
               </label>

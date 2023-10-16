@@ -15,8 +15,6 @@ export default function ProfileDetail() {
           },
         })
         const json = await response.json();
-        console.log(json);
-        console.log(profileid);
         setProfile(json);
       } catch(error) {
         console.log(error);

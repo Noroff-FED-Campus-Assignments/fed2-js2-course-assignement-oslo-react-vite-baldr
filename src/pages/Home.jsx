@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
-localStorage.setItem(
-  "jwt",
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ODEsIm5hbWUiOiJmcm9kbG8iLCJlbWFpbCI6ImZpcnN0Lmxhc3RAc3R1ZC5ub3JvZmYubm8iLCJhdmF0YXIiOm51bGwsImJhbm5lciI6bnVsbCwiaWF0IjoxNjk2NDExMTMyfQ.5rZZV8ic8pB0zNR_fLzZyHmOgteJA4HE5AbB4iPvNNE"
-);
-const accessToken = localStorage.getItem("jwt");
+import { apiKey } from "../lib/api";
 
 function HomePage() {
   const [posts, setPosts] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [data, setData] = useState([]);
+  const [, setIsLoading] = useState(true);
+  const [, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [isCreating, setIsCreating] = useState(false);
   const [newPostContent, setNewPostContent] = useState("");
@@ -18,27 +14,58 @@ function HomePage() {
 
   const handleCreatePost = async () => {
     try {
+      console.log("Creating a new post...");
       const response = await fetch(
         "https://api.noroff.dev/api/v1/social/posts",
         {
           method: "POST",
           headers: {
-            Authorization: `Bearer ${accessToken}`,
+            Authorization: `Bearer ${apiKey}`,
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ body: newPostContent }),
+          body: JSON.stringify({ title: newPostContent, body: newPostContent }),
         }
       );
 
+      const data = await response.json();
+      console.log(data);
+      localStorage.setItem("access_token", data.accessToken);
+      localStorage.setItem("user_name", data.name);
+
+      setData(data);
+
+      console.log("Post creation response:", response);
+
       if (response.ok) {
-        // Post has been successfully created. You can handle this as needed.
+        // Post has been successfully created.
         setIsCreating(false);
         setNewPostContent(""); // Clear the input field
-        // You may also fetch and display the newly created post if needed.
+
+        console.log("Fetching updated posts...");
+        const postsResponse = await fetch(
+          "https://api.noroff.dev/api/v1/social/posts?_author=true&_comments=true&_reactions=true&sortOrder=asc",
+          {
+            headers: {
+              Authorization: `Bearer ${apiKey}`,
+            },
+          }
+        );
+
+        console.log("Updated posts response:", postsResponse);
+
+        if (postsResponse.ok) {
+          // Update the list of posts with the newly created one
+          const postsData = await postsResponse.json();
+          setPosts(postsData);
+        } else {
+          console.error("Error fetching updated posts:", postsResponse.statusText);
+          // Handle the error here, e.g., display an error message.
+        }
       } else {
         // Handle the error here, e.g., display an error message.
       }
     } catch (error) {
+      console.error("An error occurred:", error);
       // Handle network or other errors here.
     }
   };
@@ -47,13 +74,11 @@ function HomePage() {
     const fetchPosts = async () => {
       try {
         setIsLoading(true);
-        const accessToken =
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ODEsIm5hbWUiOiJmcm9kbG8iLCJlbWFpbCI6ImZpcnN0Lmxhc3RAc3R1ZC5ub3JvZmYubm8iLCJhdmF0YXIiOm51bGwsImJhbm5lciI6bnVsbCwiaWF0IjoxNjk2NDExMTMyfQ.5rZZV8ic8pB0zNR_fLzZyHmOgteJA4HE5AbB4iPvNNE";
         const postsResponse = await fetch(
           "https://api.noroff.dev/api/v1/social/posts?_author=true&_comments=true&_reactions=true&sortOrder=asc",
           {
             headers: {
-              Authorization: `Bearer ${accessToken}`,
+              Authorization: `Bearer ${apiKey}`,
             },
           }
         );
@@ -70,7 +95,6 @@ function HomePage() {
         setIsLoading(false);
       }
     };
-
     fetchPosts();
   }, []);
 
@@ -154,7 +178,7 @@ function HomePage() {
               <Link to={`/post/${post.id}?postid=${post.id}`}>
                 <div className="aspect-w-3 aspect-h-2 mt-4">
                   <img
-                    src={`https://source.unsplash.com/random?sig=${Math.floor(
+                    src={`https://source.unsplash.com/random?sig=${(
                       Math.random() * 1000
                     )}`}
                     alt={post.title}

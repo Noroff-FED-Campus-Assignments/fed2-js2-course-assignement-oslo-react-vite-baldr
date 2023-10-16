@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
+import { apiKey } from "../../lib/api";
 
 export default function ExampleRegisterPage() {
   const [isLoading, setIsLoading] = useState(false);
@@ -43,19 +44,20 @@ export default function ExampleRegisterPage() {
     };
 
     try {
-      const res = await fetch(
-        "https://api.noroff.dev/api/v1/social/auth/register",
-        {
-          method: "POST",
-          body: JSON.stringify(payload),
-          headers: {
-            "Content-type": "application/json; charset=UTF-8",
-          },
-        }
-      );
+      const res = await fetch("https://api.noroff.dev/api/v1/social/auth/register", {
+        method: "POST",
+        body: JSON.stringify(payload),
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      });
+      
 
       const data = await res.json();
       localStorage.setItem("access_token", data.accessToken);
+      localStorage.setItem("user_name", data.name);
+
       setData(data);
       setIsSuccess(res.ok);
 
@@ -104,7 +106,7 @@ export default function ExampleRegisterPage() {
                   type="text"
                   autoComplete="name"
                   required
-                  className="block w-full rounded-md border-0 py-1.5 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -160,7 +162,7 @@ export default function ExampleRegisterPage() {
                   autoComplete="email"
                   required
                   onInput={(e) => validateEmail(e.target.value)}
-                  className="block w-full rounded-md border-0 py-1.5 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
                 <p
                   id="email-error-message"
