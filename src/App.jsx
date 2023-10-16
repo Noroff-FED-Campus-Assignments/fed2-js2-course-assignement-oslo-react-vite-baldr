@@ -1,9 +1,13 @@
+import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Outlet } from "@tanstack/react-router";
 import Navigation from "./components/navbar";
+import Navbar from "./components/navbar";
 import "./App.css";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import HomePage from "./pages/Home";
 import fetchSpecific from "./pages/Post";
+import ExampleProfiles from "./components/example-profiles";
+import ProfileDetail from "./components/example-profiledetail";
 import Post from "./components/example-posts";
 
 function App() {
@@ -16,13 +20,11 @@ function App() {
       <main>
         <Router>
           <Switch>
-            <Route exact path="/">
-              <HomePage />
-            </Route>
-            <Route path="/post">
-              <Post />
-            </Route>
+            <Route exact path="/" component={HomePage} />
+            <Route path="/post" component={Post} />
             <Route path="/post/:postId" component={fetchSpecific} />
+            <Route path="/profiles" exact component={ExampleProfiles} />
+            <Route path="/profile/:name" component={ProfileDetail} />
           </Switch>
           <Outlet />
         </Router>
