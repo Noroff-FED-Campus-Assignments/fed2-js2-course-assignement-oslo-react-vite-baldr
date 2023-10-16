@@ -20,6 +20,7 @@ export default function ExampleProfiles() {
 
         const response = await fetch(url.href, {
           headers: {
+            method: "GET",
             Authorization: `Bearer ${accessToken}`,
           },
         });
@@ -50,6 +51,8 @@ export default function ExampleProfiles() {
   // Function to generate a random avatar image URL for a specific profile ID
   const getRandomAvatarImage = (profileid) => {
     const randomImageId = Math.floor(Math.random() * 1000);
+
+    return `https://source.unsplash.com/random/100x100/?${randomImageId}&profileId=${profileId}`;
     return `https://source.unsplash.com/random/100x100/?avatar?sig=${randomImageId}&profileId=${profileid}`;
   };
 

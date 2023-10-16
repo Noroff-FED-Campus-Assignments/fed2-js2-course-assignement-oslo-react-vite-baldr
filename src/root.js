@@ -58,8 +58,8 @@ const postsRoute = new Route({
 
 const postRoute = new Route({
   getParentRoute: () => rootRoute,
-  path: "/posts/$postId",
-  component: PostPage,
+  path: "/post/$postId",
+  component: PostsPage,
 });
 
 const routeTree = rootRoute.addChildren([

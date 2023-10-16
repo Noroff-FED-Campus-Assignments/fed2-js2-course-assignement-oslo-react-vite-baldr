@@ -1,17 +1,14 @@
-import { useEffect, useState } from "react";
-
-const initialPostState = {
-  title: "No post found",
-  body: "Nothing to see here",
-  userId: null,
-  id: null,
+const fetchSpecific = () => {
+  return (
+    <div className="specific text-white">
+      <h2>hei prøv nå</h2>
+    </div>
+  );
 };
 
-/**
- * Displays a single post
- * @see https://docs.noroff.dev/social-endpoints/posts
- */
-export default function PostPage() {
+export default fetchSpecific;
+
+/*export default function PostPage() {
   const [post, setPost] = useState(initialPostState);
 
   useEffect(() => {
@@ -39,3 +36,4 @@ export default function PostPage() {
     </>
   );
 }
+*/
