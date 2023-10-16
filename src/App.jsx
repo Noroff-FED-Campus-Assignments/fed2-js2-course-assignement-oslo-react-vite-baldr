@@ -1,5 +1,10 @@
 import { Outlet } from "@tanstack/react-router";
-import Navigation from "./components/navbar";
+import Navbar from "./components/navbar";
+import { useState } from "react";
+import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import ExampleProfiles from "./components/example-profiles";
+import ProfileDetail from "./components/example-profiledetail";
 import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import HomePage from "./pages/Home";
@@ -10,7 +15,7 @@ function App() {
   return (
     <>
       <header>
-        <Navigation />
+        <Navbar />
       </header>
 
       <main>
@@ -23,6 +28,12 @@ function App() {
               <Post />
             </Route>
             <Route path="/post/:postId" component={fetchSpecific} />
+ <Route path="/profiles" exact>
+              <ExampleProfiles />
+            </Route>
+            <Route path="/profile/:name">
+              <ProfileDetail />
+            </Route>
           </Switch>
           <Outlet />
         </Router>

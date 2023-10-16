@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "@tanstack/react-router";
 
 export default function ExampleProfiles() {
   const [profiles, setProfiles] = useState([]);
@@ -48,9 +49,11 @@ export default function ExampleProfiles() {
   }, []);
 
   // Function to generate a random avatar image URL for a specific profile ID
-  const getRandomAvatarImage = (profileId) => {
+  const getRandomAvatarImage = (profileid) => {
     const randomImageId = Math.floor(Math.random() * 1000);
+
     return `https://source.unsplash.com/random/100x100/?${randomImageId}&profileId=${profileId}`;
+    return `https://source.unsplash.com/random/100x100/?avatar?sig=${randomImageId}&profileId=${profileid}`;
   };
 
   if (isLoading) return <h1>Loading...</h1>;
@@ -63,11 +66,14 @@ export default function ExampleProfiles() {
 
       <section>
         {profiles.map((profile) => (
-          <div key={profile.id}>
-            <h2>{profile.name}</h2>
-            <h3>{profile.email}</h3>
-            <img src={profile.avatar} alt={profile.name} />
-          </div>
+          <div key={profile?.name}>
+            <Link to={`/profiles/${profile.name}?profileid=${profile.name}`}>
+              <h2>{profile?.name}</h2>
+              <h3>{profile?.email}</h3>
+              <img src={profile?.avatar} alt={profile?.name} />
+            </Link>
+            </div>
+
         ))}
       </section>
     </>
