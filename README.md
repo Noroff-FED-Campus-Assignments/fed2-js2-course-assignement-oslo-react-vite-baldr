@@ -18,7 +18,7 @@ In the course of our project, we encountered a significant challenge that led us
 **API and documentation:**
 Our group chose to work with the Tailwind CSS framework in React. The project is based on the Noroff API, which was hard to work with. We faced several problems during the process of fetching, which led us to implement media content from the unsplash random image generator, both for the list of posts, posts specific page and the profile images/avatars - instead of sticking to the media content from the Noroff API which was very unreliable.
 
-Another issue we faced with the API is that we are able to see the new posts we create in the data/Rapid API and in the console, but it’s not showing on our page/UI. A screenshot from Rapid API showing this is attached in the word document report Here: https://docs.google.com/document/d/1Qc6LeB29uPCvyyymQSix-jW90LcSkcWpSOfE1eO1fLg/edit?usp=sharing
+Another issue we faced with the API is that we are able to see the new posts we create in the data/Rapid API and in the console, but it’s not showing on our page/UI. A screenshot from Rapid API showing this is attached in the word document report here: https://docs.google.com/document/d/1Qc6LeB29uPCvyyymQSix-jW90LcSkcWpSOfE1eO1fLg/edit?usp=sharing
 
 
 **Branches:**
