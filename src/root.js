@@ -40,8 +40,8 @@ const profilesRoute = new Route({
 
 const profileRoute = new Route({
   getParentRoute: () => rootRoute,
-  path: "/profiles/$profileId",
-  component: ProfilesPage,
+  path: "/profiles/$profileid",
+  component: ProfilePage,
 });
 
 const myProfileRoute = new Route({
