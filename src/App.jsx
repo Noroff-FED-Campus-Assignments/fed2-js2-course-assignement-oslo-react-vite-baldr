@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Outlet } from "@tanstack/react-router";
-import Navigation from "./components/navbar";
+import Navbar from "./components/navbar";
 import "./App.css";
 import HomePage from "./pages/Home";
 import fetchSpecific from "./pages/Post";
@@ -13,7 +13,7 @@ function App() {
   return (
     <>
       <header>
-        <Navigation />
+        <Navbar />
       </header>
 
       <main>
