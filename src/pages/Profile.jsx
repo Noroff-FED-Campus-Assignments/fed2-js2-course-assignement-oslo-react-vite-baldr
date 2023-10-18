@@ -1,4 +1,4 @@
-import ProfileDetail from "../components/example-profiledetail";
+import MyProfileDetail from "../components/myprofiledetail";
 
 /**
  * Displays a single profile
@@ -8,7 +8,7 @@ export default function ProfilePage() {
   return (
     <>
       <h1>Profile Page</h1>
-      <ProfileDetail />
+      <MyProfileDetail />
     </>
   );
 }

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
-import { apiKey } from "../../lib/api";
 
 export default function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -33,7 +32,6 @@ export default function LoginForm() {
           method: "POST",
           body: JSON.stringify(payload),
           headers: {
-            Authorization: `Bearer ${apiKey}`,
             "Content-type": "application/json; charset=UTF-8",
           },
         }
@@ -42,6 +40,7 @@ export default function LoginForm() {
       const data = await res.json();
       localStorage.setItem("access_token", data.accessToken);
       localStorage.setItem("user_email", data.email);
+      localStorage.setItem("user_name", data.name);
 
       setData(data);
 

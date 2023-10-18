@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { apiKey } from "../lib/api";
 
 function HomePage() {
   const [posts, setPosts] = useState([]);
@@ -15,6 +14,7 @@ function HomePage() {
   const handleCreatePost = async () => {
     try {
       console.log("Creating a new post...");
+      const apiKey = localStorage.getItem("access_token")
       const response = await fetch(
         "https://api.noroff.dev/api/v1/social/posts",
         {
@@ -29,8 +29,6 @@ function HomePage() {
 
       const data = await response.json();
       console.log(data);
-      localStorage.setItem("access_token", data.accessToken);
-      localStorage.setItem("user_email", data.email);
 
       setData(data);
 
@@ -42,6 +40,7 @@ function HomePage() {
         setNewPostContent(""); // Clear the input field
 
         console.log("Fetching updated posts...");
+        const apiKey = localStorage.getItem("access_token")
         const postsResponse = await fetch(
           "https://api.noroff.dev/api/v1/social/posts?_author=true&_comments=true&_reactions=true&sortOrder=asc",
           {
@@ -74,6 +73,8 @@ function HomePage() {
     const fetchPosts = async () => {
       try {
         setIsLoading(true);
+        const apiKey = localStorage.getItem("access_token")
+
         const postsResponse = await fetch(
           "https://api.noroff.dev/api/v1/social/posts?_author=true&_comments=true&_reactions=true&sortOrder=asc",
           {

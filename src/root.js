@@ -7,6 +7,7 @@ import ProfilePage from "./pages/Profile";
 import PostsPage from "./pages/Posts";
 import Root from "./App";
 import ProfileDetail from "./components/example-profiledetail";
+import MyProfileDetail from "./components/myprofiledetail";
 
 const rootRoute = new RootRoute({
   component: Root,
@@ -47,7 +48,7 @@ const profileRoute = new Route({
 const myProfileRoute = new Route({
   getParentRoute: () => rootRoute,
   path: "/profile",
-  component: ProfilePage,
+  component: MyProfileDetail,
 });
 
 const postsRoute = new Route({
