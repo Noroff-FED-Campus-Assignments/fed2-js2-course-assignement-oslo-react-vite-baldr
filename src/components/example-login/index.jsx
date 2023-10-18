@@ -41,7 +41,7 @@ export default function LoginForm() {
 
       const data = await res.json();
       localStorage.setItem("access_token", data.accessToken);
-      localStorage.setItem("user_name", data.name);
+      localStorage.setItem("user_email", data.email);
 
       setData(data);
 
