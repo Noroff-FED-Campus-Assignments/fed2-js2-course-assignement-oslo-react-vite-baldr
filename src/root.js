@@ -3,7 +3,6 @@ import HomePage from "./pages/Home";
 import LoginPage from "./pages/Login";
 import RegisterPage from "./pages/Register";
 import ProfilesPage from "./pages/Profiles";
-import ProfilePage from "./pages/Profile";
 import PostsPage from "./pages/Posts";
 import Root from "./App";
 import ProfileDetail from "./components/example-profiledetail";

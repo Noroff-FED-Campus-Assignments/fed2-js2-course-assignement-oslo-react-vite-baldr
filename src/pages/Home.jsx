@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 function HomePage() {
   const [posts, setPosts] = useState([]);
@@ -10,6 +10,7 @@ function HomePage() {
   const [isCreating, setIsCreating] = useState(false);
   const [newPostContent, setNewPostContent] = useState("");
   const [filterUser, setFilterUser] = useState("");
+  const history = useHistory();
 
   const handleCreatePost = async () => {
     try {
@@ -56,6 +57,7 @@ function HomePage() {
           // Update the list of posts with the newly created one
           const postsData = await postsResponse.json();
           setPosts(postsData);
+          history.push("/");
         } else {
           console.error("Error fetching updated posts:", postsResponse.statusText);
           // Handle the error here, e.g., display an error message.
@@ -99,6 +101,11 @@ function HomePage() {
     fetchPosts();
   }, []);
 
+  const handleLogout = () => {
+    localStorage.removeItem("access_token");
+    history.push("/login");
+  };
+
   const filteredPosts = posts.filter((post) => {
     const matchesSearch = post.body
       .toLowerCase()
@@ -108,9 +115,15 @@ function HomePage() {
       .includes(filterUser.toLowerCase());
     return matchesSearch && (filterUser === "" || matchesUser);
   });
+  
 
   return (
     <>
+            <div className="logout-button">
+          <button onClick={handleLogout} className="bg-red-500 text-white p-2 rounded mt-4 mr-4">
+            Logout
+          </button>
+        </div>
       <div className="bg-white text-black">
         <h1 className="text-2xl font-bold mb-4">Index/ Home Page</h1>
         <div className="create-post">
