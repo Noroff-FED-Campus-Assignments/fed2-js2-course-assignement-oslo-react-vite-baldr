@@ -8,12 +8,13 @@ import fetchSpecific from "./pages/Post";
 import ExampleProfiles from "./components/example-profiles";
 import ProfileDetail from "./components/example-profiledetail";
 import Post from "./components/example-posts";
+import Navigation from "./components/navbar";
 
 function App() {
   return (
     <>
       <header>
-        <Navbar />
+        <Navigation />
       </header>
 
       <main>

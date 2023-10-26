@@ -1,7 +1,6 @@
 import { API_URL } from "./constants";
 
-export const apiKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ODEsIm5hbWUiOiJmcm9kbG8iLCJlbWFpbCI6ImZpcnN0Lmxhc3RAc3R1ZC5ub3JvZmYubm8iLCJhdmF0YXIiOm51bGwsImJhbm5lciI6bnVsbCwiaWF0IjoxNjk2NDExMTMyfQ.5rZZV8ic8pB0zNR_fLzZyHmOgteJA4HE5AbB4iPvNNE"
-
+export const apiKey = localStorage.getItem("access_token")
 /**
  * Helper function to add the
  * @param {Object} options - HTTP header options
@@ -10,7 +9,7 @@ export const apiKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ODEsIm5hbWUi
 function updateOptions(options) {
   const update = { ...options };
 
-  if (localStorage.getItem("jwt")) {
+  if (localStorage.getItem("access_token")) {
     update.headers = {
       ...update.headers,
       Authorization: `Bearer ${apiKey}`,

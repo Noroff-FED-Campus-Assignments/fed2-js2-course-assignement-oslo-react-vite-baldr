@@ -1,20 +1,21 @@
-import { useEffect, useState } from "react";
 import { useSearch } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 
 export default function ProfileDetail() {
-  const { profileid } = useSearch();
   const [profile, setProfile] = useState();
+  const { profileid } = useSearch();
 
   useEffect(() => {
+    const apiKey = localStorage.getItem("access_token")
     const fetchProfile = async () => {
       try {
-        const accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ODEsIm5hbWUiOiJmcm9kbG8iLCJlbWFpbCI6ImZpcnN0Lmxhc3RAc3R1ZC5ub3JvZmYubm8iLCJhdmF0YXIiOm51bGwsImJhbm5lciI6bnVsbCwiaWF0IjoxNjk2NDExMTMyfQ.5rZZV8ic8pB0zNR_fLzZyHmOgteJA4HE5AbB4iPvNNE';
         const response = await fetch(`https://api.noroff.dev/api/v1/social/profiles/${profileid}`, {
           headers: {
-            Authorization: `Bearer ${accessToken}`,
+            Authorization: `Bearer ${apiKey}`,
           },
         })
         const json = await response.json();
+        console.log("json", json);
         setProfile(json);
       } catch(error) {
         console.log(error);

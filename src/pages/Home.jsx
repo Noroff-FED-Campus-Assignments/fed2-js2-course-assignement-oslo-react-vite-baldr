@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { apiKey } from "../lib/api";
+import { Link, useHistory } from "react-router-dom";
 
 function HomePage() {
   const [posts, setPosts] = useState([]);
@@ -11,10 +10,12 @@ function HomePage() {
   const [isCreating, setIsCreating] = useState(false);
   const [newPostContent, setNewPostContent] = useState("");
   const [filterUser, setFilterUser] = useState("");
+  const history = useHistory();
 
   const handleCreatePost = async () => {
     try {
       console.log("Creating a new post...");
+      const apiKey = localStorage.getItem("access_token")
       const response = await fetch(
         "https://api.noroff.dev/api/v1/social/posts",
         {
@@ -29,8 +30,6 @@ function HomePage() {
 
       const data = await response.json();
       console.log(data);
-      localStorage.setItem("access_token", data.accessToken);
-      localStorage.setItem("user_name", data.name);
 
       setData(data);
 
@@ -42,6 +41,7 @@ function HomePage() {
         setNewPostContent(""); // Clear the input field
 
         console.log("Fetching updated posts...");
+        const apiKey = localStorage.getItem("access_token")
         const postsResponse = await fetch(
           "https://api.noroff.dev/api/v1/social/posts?_author=true&_comments=true&_reactions=true&sortOrder=asc",
           {
@@ -57,6 +57,7 @@ function HomePage() {
           // Update the list of posts with the newly created one
           const postsData = await postsResponse.json();
           setPosts(postsData);
+          history.push("/");
         } else {
           console.error("Error fetching updated posts:", postsResponse.statusText);
           // Handle the error here, e.g., display an error message.
@@ -74,6 +75,8 @@ function HomePage() {
     const fetchPosts = async () => {
       try {
         setIsLoading(true);
+        const apiKey = localStorage.getItem("access_token")
+
         const postsResponse = await fetch(
           "https://api.noroff.dev/api/v1/social/posts?_author=true&_comments=true&_reactions=true&sortOrder=asc",
           {
@@ -98,6 +101,11 @@ function HomePage() {
     fetchPosts();
   }, []);
 
+  const handleLogout = () => {
+    localStorage.removeItem("access_token");
+    history.push("/login");
+  };
+
   const filteredPosts = posts.filter((post) => {
     const matchesSearch = post.body
       .toLowerCase()
@@ -107,9 +115,15 @@ function HomePage() {
       .includes(filterUser.toLowerCase());
     return matchesSearch && (filterUser === "" || matchesUser);
   });
+  
 
   return (
     <>
+            <div className="logout-button">
+          <button onClick={handleLogout} className="bg-red-500 text-white p-2 rounded mt-4 mr-4">
+            Logout
+          </button>
+        </div>
       <div className="bg-white text-black">
         <h1 className="text-2xl font-bold mb-4">Index/ Home Page</h1>
         <div className="create-post">
