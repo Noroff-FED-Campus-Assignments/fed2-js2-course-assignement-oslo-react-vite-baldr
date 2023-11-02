@@ -1,5 +1,6 @@
 import { API_URL } from "./constants";
 
+export const apiKey = localStorage.getItem("access_token")
 /**
  * Helper function to add the
  * @param {Object} options - HTTP header options
@@ -8,10 +9,10 @@ import { API_URL } from "./constants";
 function updateOptions(options) {
   const update = { ...options };
 
-  if (localStorage.getItem("jwt")) {
+  if (localStorage.getItem("access_token")) {
     update.headers = {
       ...update.headers,
-      Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      Authorization: `Bearer ${apiKey}`,
     };
   }
 
@@ -48,4 +49,18 @@ export async function fetchAllPosts() {
   } catch (error) {
     throw new Error(error);
   }
+}
+
+export async function login({ username, password }) {
+
+  try {
+    const response = await fetch.post(`${API_URL}/auth/login`, {
+      username,
+      password,
+    });
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+
 }
