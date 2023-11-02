@@ -1,8 +1,14 @@
 # Course assignment for Javascript 2
 
 TEAM: BALDR
+
+
 Link to deployed website: https://effulgent-griffin-9fee75.netlify.app/
+
+
 Link to Figma design: https://www.figma.com/file/0XyJz9MgGwxuHosSaWSMHs/Untitled?type=design&node-id=0%3A1&mode=design&t=QS9dj0X4SOoEx1G7-1
+
+
 Link to Figma Kanban: https://www.figma.com/file/4zjd37Qr8u1qRo3FD3wDqs/Untitled?type=whiteboard&node-id=0%3A1&t=dYs94PopW43TortC-1
 
 Introduction:
